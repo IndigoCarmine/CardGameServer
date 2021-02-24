@@ -45,11 +45,7 @@ namespace CardGameServer
             return;
 
         }
-
-
-
-
-
+        
         Random random = new Random();
         /// <summary>
         /// カードを配る
@@ -230,6 +226,7 @@ namespace CardGameServer
             //選択したカードに手札以外が含まれている。
             if (NotExist)
             {
+                SendData(player, SendParameter.Error, "CardDoesntExist");
                 SendData(player, SendParameter.Hand, player.GetHand());
                 player.Turn = true;
                 SendData(player, SendParameter.Turn, "0");
