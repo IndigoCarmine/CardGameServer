@@ -27,6 +27,7 @@ namespace CardGameServer
             }
 
         }
+
          
         public void GameStart()
         {
@@ -239,22 +240,11 @@ namespace CardGameServer
                 SendData(player, SendParameter.Hand, player.GetHand());
                 if(player.Hand.Count == 0)
                 {
-                    if (player.UnoFrag)
-                    {
+
                         SendData(player, SendParameter.Finish, "Win");
                         SendData(GetOtherPlayers(player)[0], SendParameter.Finish, "Lose");
                         Console.WriteLine("We Finish the Game.");
-                    }
-                    else
-                    {
-                        //Uno宣言なしによるペナルティ
-                        Distribute(player, 1);
-                        SendData(player, SendParameter.Hand, player.GetHand());
-                        GetOtherPlayers(player)[0].Turn = true;
-                        SendData(GetOtherPlayers(player)[0], SendParameter.Turn, "0");
-
-                    }
-                }
+                 }
                 else
                 {
                     GetOtherPlayers(player)[0].Turn = true;
