@@ -264,6 +264,8 @@ namespace CardGameServer
         bool IsAppropriate(string[] CardIDArray)
         {
 
+
+
             ///ルール通り何かつける。
             return true;
         }
