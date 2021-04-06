@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 /// <summary>
 /// https://webbibouroku.com/Blog/Article/socket-server から引用また、一部改変
@@ -24,10 +22,18 @@ namespace CardGameServer
 
         // 接続中のクライアント(スレッドセーフコレクション)
         public SynchronizedCollection<Socket> ClientSockets { get; } = new SynchronizedCollection<Socket>();
-        IPAddress ip = IPAddress.Parse("192.168.0.6");
+
+
+
+        IPAddress ip;
 
         public Server(int port)
         {
+            foreach (IPAddress address in Dns.GetHostAddresses(Dns.GetHostName()))
+            {
+                ip = address;
+            }
+
             this.IPEndPoint = new IPEndPoint(ip, port);
         }
 
