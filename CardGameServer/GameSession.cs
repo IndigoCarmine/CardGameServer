@@ -261,8 +261,47 @@ namespace CardGameServer
 
         }
 
-        bool IsAppropriate(string[] CardIDArray)
+        bool IsAppropriate(string[] StrCardIDArray)
         {
+            List<int> CardIDArray = new List<int>();
+
+            foreach(string strCardID in StrCardIDArray)
+            {
+                CardIDArray.Add(int.Parse(strCardID));
+            }
+
+            //未選択カードを弾く
+            foreach(int CardID in CardIDArray)
+            {
+                if (CardID >= 400) return false;
+            }
+
+
+            //すべてChangeカードならば、真を返す。
+            bool ChangeDFlag = true;
+            bool ChangeFlag = true;
+            foreach (int CardID in CardIDArray)
+            {
+                if (CardID % 100 != 12) ChangeDFlag = false;
+                if (CardID % 100 != 13) ChangeFlag = false;
+
+            }
+            if (ChangeDFlag || ChangeFlag) return true;
+
+
+            //場のカードと色、数字が違うようなカードが1枚めに来たとき
+            if (TopDrawCard % 100 != CardIDArray[0] % 100 && TopDrawCard / 100 != CardIDArray[0] / 100) return false;
+            
+
+
+
+
+
+            //すべてのカードが同じ数字か確認
+            for(int i = 0; i> CardIDArray.Count; i++)
+            {
+                if (CardIDArray[i] % 100 != CardIDArray[i + 1] % 100) return false;
+            }
 
 
 
